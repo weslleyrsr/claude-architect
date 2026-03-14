@@ -1,0 +1,5 @@
+progress/
+mcp-server/node_modules/
+mcp-server/dist/
+.idea/
+*.DS_Store
