@@ -56,17 +56,3 @@ export interface ProgressWriteOutput {
   success: boolean
   error?: string
 }
-
-export interface ValidateExerciseInput {
-  block: string              // e.g. "1.1"
-  code: string
-  language: "ts" | "py"
-}
-
-export interface ValidateExerciseOutput {
-  passed: boolean
-  score: number              // 0-100
-  feedback: string
-  hints: string[]
-  keyConceptsVerified: string[]
-}

@@ -7,7 +7,6 @@ import {
 
 import { gitCreateBranch, gitCommitProgress, gitPushBranch } from "./tools/git.js"
 import { progressRead, progressWrite } from "./tools/progress.js"
-import { validateExercise } from "./tools/validator.js"
 
 const server = new Server(
   { name: "claude-architect-mcp", version: "1.0.0" },
@@ -77,30 +76,6 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
         required: ["data"],
       },
     },
-    {
-      name: "validate_exercise",
-      description:
-        "Validate a student's exercise code against the block rubric using Claude",
-      inputSchema: {
-        type: "object",
-        properties: {
-          block: {
-            type: "string",
-            description: 'Block ID, e.g. "1.1"',
-          },
-          code: {
-            type: "string",
-            description: "The student's full source code",
-          },
-          language: {
-            type: "string",
-            enum: ["ts", "py"],
-            description: "Programming language of the submission",
-          },
-        },
-        required: ["block", "code", "language"],
-      },
-    },
   ],
 }))
 
@@ -130,13 +105,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
     case "progress_write": {
       const result = progressWrite(args as { data: object })
-      return { content: [{ type: "text", text: JSON.stringify(result) }] }
-    }
-
-    case "validate_exercise": {
-      const result = await validateExercise(
-        args as { block: string; code: string; language: "ts" | "py" }
-      )
       return { content: [{ type: "text", text: JSON.stringify(result) }] }
     }
 

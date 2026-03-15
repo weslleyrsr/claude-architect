@@ -18,14 +18,13 @@ This repo transforms your Claude Code session into a personalized exam tutor. Th
 
 - [Claude Code](https://claude.ai/claude-code) installed
 - Node.js 20+
-- `ANTHROPIC_API_KEY` set in your environment
 - Git
 
 ### Setup
 
 ```bash
 # 1. Clone the repo
-git clone <repo-url>
+git clone https://github.com/weslleyrsr/claude-architect.git
 cd claude-architect
 
 # 2. Install MCP server dependencies
@@ -150,7 +149,6 @@ The local MCP server provides these tools (used internally by skills):
 | `git_push_branch` | Push student branch to remote |
 | `progress_read` | Read student.json |
 | `progress_write` | Update student.json (deep merge) |
-| `validate_exercise` | Grade student code against rubric (uses Claude API) |
 
 ---
 
@@ -159,7 +157,7 @@ The local MCP server provides these tools (used internally by skills):
 - **Approach:** Hybrid plugin — skills + commands + local MCP server
 - **State:** `progress/student.json` on student branch only
 - **Git ops:** All via MCP tools, never raw shell commands
-- **Validation:** Claude validates Claude exercises (meta!)
+- **Validation:** Claude evaluates exercises inline — no external API call needed
 - **Isolation:** Student data lives on `student/<name>-<ts>` branches — main is always clean
 
 ---
@@ -169,8 +167,6 @@ The local MCP server provides these tools (used internally by skills):
 **MCP server not connecting:**
 ```bash
 cd mcp-server && npm run build
-# Check that ANTHROPIC_API_KEY is set
-echo $ANTHROPIC_API_KEY
 ```
 
 **Progress not saving:**
@@ -178,12 +174,6 @@ echo $ANTHROPIC_API_KEY
 # Verify you're on a student branch
 git branch
 # Should show: student/your-name-timestamp
-```
-
-**Validator returning errors:**
-```bash
-# The validator uses Claude API — ensure key is set
-export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
 ---

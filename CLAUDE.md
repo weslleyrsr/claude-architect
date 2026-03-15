@@ -20,7 +20,7 @@ The exam guide PDF is at the root: `Claude-Certified-Architect-Foundations-Certi
 - **Always use the MCP tools** for git operations, never raw shell commands
 - MCP tools: `git_create_branch`, `git_commit_progress`, `git_push_branch`
 - Progress tools: `progress_read`, `progress_write`
-- Exercise validation: `validate_exercise`
+- Exercise validation: done inline by Claude (no external API call)
 
 ### Student Identity
 - Always **greet the student by name** (loaded from `progress/student.json` via SessionStart hook)
@@ -39,7 +39,7 @@ The exam guide PDF is at the root: `Claude-Certified-Architect-Foundations-Certi
 ```
 curriculum/           Theory markdown per block (read-only on student branches)
 exercises/            Code scaffolds per block (starter.ts / starter.py / solution/)
-mcp-server/           Local MCP server providing git + progress + validation tools
+mcp-server/           Local MCP server providing git + progress tools
 progress/             Student-only: student.json + reports/ (gitignored on main)
 .claude/commands/     /study entry point command
 .claude/skills/       enroll, jedi-mode, study-block, block-report
@@ -66,8 +66,6 @@ progress/             Student-only: student.json + reports/ (gitignored on main)
 ## MCP Server
 
 The local MCP server at `mcp-server/` provides all git and progress operations. It must be running for the study experience to work. It is auto-started via `.mcp.json`.
-
-**Requires:** `ANTHROPIC_API_KEY` in environment (used by `validate_exercise` tool)
 
 ---
 

@@ -52,7 +52,12 @@ Tell the student:
 ### Validation Loop (max 3 attempts)
 
 When the student pastes code:
-1. Use MCP tool `validate_exercise` with `{ block, code, language }`
+1. Evaluate it yourself against the rubric from `exercises/domain-<D>/block-<D.B>/README.md` (already loaded in Setup). Produce:
+   - `passed`: true if score ≥ 70
+   - `score`: 0–100 integer
+   - `feedback`: 2–4 sentences (what they did well, what's missing)
+   - `hints`: 2 specific actionable hints if failed
+   - `keyConceptsVerified`: list of rubric criteria the code satisfies
 2. Show the result:
 
 **If passed:**
